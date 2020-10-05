@@ -1,10 +1,11 @@
 const Database = require('./db');
 const createEmpresa = require('./createEmpresa');
 const createVoo = require('./createVoo');
+const createSituacao = require('./createSituacao');
 
 async function saveEmpresa(data) {
 	const empresa = {
-		name: data.empresa,
+		nome: data.empresa,
 	};
 
 	try {
@@ -24,7 +25,7 @@ async function saveSituacao(data) {
 
 	try {
 		const db = await Database;
-		await createEmpresa(db, {
+		await createSituacao(db, {
 			situacao,
 		});
 	} catch (error) {
