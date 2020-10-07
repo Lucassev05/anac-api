@@ -183,7 +183,7 @@ async function inserirVoo(voo) {
 }
 
 async function lerDados() {
-	const nameDir = 'teste2';
+	const nameDir = '01-2018';
 	const dataSet = fs.createReadStream(
 		`src/database/dataset/${nameDir}_out.csv`
 	);
