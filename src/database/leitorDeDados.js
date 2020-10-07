@@ -196,9 +196,6 @@ async function lerDados() {
 			tipo_linha: data.tipo_linha,
 			origem: data.origem,
 			destino: data.destino,
-			// partida_prevista: data.partida_prevista
-			// 	? formatarData(data.partida_prevista)
-			// 	: null,
 			partida_prevista: data.partida_prevista
 				? formatarData(data.partida_prevista)
 				: null,
