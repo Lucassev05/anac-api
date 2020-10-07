@@ -30,24 +30,27 @@ const getAno = async (ctx) => {
 	`;
 
 	const dadosPorMes = `
-	SELECT strftime('%m', voos.partida_real) as Mes,
+	SELECT IFNULL(strftime('%m', voos.partida_real),00) as Mes,
 	COUNT(voos.id) as Total,
-	(SELECT COUNT (voos.id)
-		FROM voos
-		INNER JOIN situacoes on situacoes.id = voos.id_situacao
+	(SELECT COUNT (voos2.id)
+		FROM voos voos2
+		INNER JOIN situacoes on situacoes.id = voos2.id_situacao
+		INNER JOIN voos on voos.id = voos2.id
 		WHERE situacao like 'realizado'
-		AND voos.partida_prevista < voos.partida_real) as Total_Atrasados,
-	(SELECT COUNT (voos.id)
-		FROM voos
-		INNER JOIN situacoes on situacoes.id = voos.id_situacao
+		AND voos2.partida_prevista < voos2.partida_real) as Total_Atrasados,
+	(SELECT COUNT (voos3.id)
+		FROM voos voos3
+		INNER JOIN situacoes on situacoes.id = voos3.id_situacao
+		INNER JOIN voos on voos.id = voos3.id
 		WHERE situacao like 'realizado'
-		AND voos.partida_prevista >= voos.partida_real) as Total_No_Hoario,
-	(SELECT COUNT (voos.id)
-		FROM voos
-		INNER JOIN situacoes on situacoes.id = voos.id_situacao
+		AND voos3.partida_prevista >= voos3.partida_real) as Total_No_Hoario,
+	(SELECT COUNT (voos4.id)
+		FROM voos voos4
+		INNER JOIN situacoes on situacoes.id = voos4.id_situacao
+		INNER JOIN voos on voos.id = voos4.id
 		WHERE situacao like 'cancelado') as Total_Cancelados
 	FROM voos
-	GROUP BY strftime('%m', voos.partida_real)`;
+	GROUP BY IFNULL(strftime('%m', voos.partida_real),00)`;
 
 	try {
 		const db = await Database;
