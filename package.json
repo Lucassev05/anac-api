@@ -4,6 +4,7 @@
 	"description": "",
 	"main": "index.js",
 	"dependencies": {
+		"@koa/cors": "^3.1.0",
 		"csv-parser": "^2.3.3",
 		"dotenv": "^8.2.0",
 		"koa": "^2.13.0",

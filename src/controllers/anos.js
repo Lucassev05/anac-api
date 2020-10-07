@@ -35,20 +35,23 @@ const getAno = async (ctx) => {
 	(SELECT COUNT (voos2.id)
 		FROM voos voos2
 		INNER JOIN situacoes on situacoes.id = voos2.id_situacao
-		INNER JOIN voos on voos.id = voos2.id
 		WHERE situacao like 'realizado'
-		AND voos2.partida_prevista < voos2.partida_real) as Total_Atrasados,
+		AND voos2.partida_prevista < voos2.partida_real
+		AND strftime('%m', IFNULL(voos2.partida_real, voos2.chegada_real)) 
+		= strftime('%m', IFNULL(voos.partida_real, voos.chegada_real))) as Total_Atrasados,
 	(SELECT COUNT (voos3.id)
 		FROM voos voos3
 		INNER JOIN situacoes on situacoes.id = voos3.id_situacao
-		INNER JOIN voos on voos.id = voos3.id
 		WHERE situacao like 'realizado'
-		AND voos3.partida_prevista >= voos3.partida_real) as Total_No_Hoario,
+		AND voos3.partida_prevista >= voos3.partida_real
+		AND strftime('%m', IFNULL(voos3.partida_real, voos3.chegada_real)) 
+		= strftime('%m', IFNULL(voos.partida_real, voos.chegada_real))) as Total_No_Hoario,
 	(SELECT COUNT (voos4.id)
 		FROM voos voos4
 		INNER JOIN situacoes on situacoes.id = voos4.id_situacao
-		INNER JOIN voos on voos.id = voos4.id
-		WHERE situacao like 'cancelado') as Total_Cancelados
+		WHERE situacao like 'cancelado'
+		AND strftime('%m', IFNULL(voos4.partida_prevista, voos4.chegada_prevista)) 
+		= strftime('%m', IFNULL(voos.partida_prevista, voos.chegada_prevista))) as Total_Cancelados
 	FROM voos
 	GROUP BY IFNULL(strftime('%m', voos.partida_real),00)`;
 
