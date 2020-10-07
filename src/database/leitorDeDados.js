@@ -183,7 +183,7 @@ async function inserirVoo(voo) {
 }
 
 async function lerDados() {
-	const nameDir = '01-2019';
+	const nameDir = 'teste2';
 	const dataSet = fs.createReadStream(
 		`src/database/dataset/${nameDir}_out.csv`
 	);
@@ -196,6 +196,9 @@ async function lerDados() {
 			tipo_linha: data.tipo_linha,
 			origem: data.origem,
 			destino: data.destino,
+			// partida_prevista: data.partida_prevista
+			// 	? formatarData(data.partida_prevista)
+			// 	: null,
 			partida_prevista: data.partida_prevista
 				? formatarData(data.partida_prevista)
 				: null,

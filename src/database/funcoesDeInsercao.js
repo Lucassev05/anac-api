@@ -1,49 +1,49 @@
 async function createEmpresa(db, { empresa }) {
-  const empresaInserida = await db.run(`
+	const empresaInserida = await db.run(`
 	  INSERT INTO empresas (
 		  sigla
 	  ) VALUES (
 		  "${empresa.nome}"
 	  );
 	`);
-  return empresaInserida.lastID;
+	return empresaInserida.lastID;
 }
 
 async function createSituacao(db, { situacao }) {
-  const situacaoInserida = await db.run(`
+	const situacaoInserida = await db.run(`
 	  INSERT INTO situacoes (
 		  situacao
 	  ) VALUES (
 		  "${situacao.titulo}"
 	  );
 	`);
-  return situacaoInserida.lastID;
+	return situacaoInserida.lastID;
 }
 
 async function createJustificativa(db, { justificativa }) {
-  const justificativaInserida = await db.run(`
+	const justificativaInserida = await db.run(`
 	  INSERT INTO justificativas (
 		  sigla
 	  ) VALUES (
 		  "${justificativa.sigla}"
 	  );
 	`);
-  return justificativaInserida.lastID;
+	return justificativaInserida.lastID;
 }
 
 async function createAeroporto(db, { aeroporto }) {
-  const aeroportoInserido = await db.run(`
+	const aeroportoInserido = await db.run(`
 		INSERT INTO aeroportos (
 			sigla
 		) VALUES (
 			"${aeroporto.sigla}"
 		);
 	  `);
-  return aeroportoInserido.lastID;
+	return aeroportoInserido.lastID;
 }
 
 async function createVoo(db, { voo }) {
-  await db.run(`
+	await db.run(`
         INSERT INTO voos (
 		  id_empresa,
 		  numero_voo,
@@ -75,9 +75,9 @@ async function createVoo(db, { voo }) {
 }
 
 module.exports = {
-  createEmpresa,
-  createSituacao,
-  createVoo,
-  createJustificativa,
-  createAeroporto,
+	createEmpresa,
+	createSituacao,
+	createVoo,
+	createJustificativa,
+	createAeroporto,
 };
