@@ -14,4 +14,4 @@ server.use(bodyparser());
 
 server.use(router.routes());
 
-server.listen(PORT, () => console.log(`Rodando na porta ${PORT}`));
+server.listen(PORT, () => {});
