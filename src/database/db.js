@@ -1,31 +1,46 @@
-const Database = require('sqlite-async');
+const Database = require("sqlite-async");
 
 function execute(db) {
-	return db.exec(`
+  return db.exec(`
 	  CREATE TABLE IF NOT EXISTS empresas (
 		  id INTEGER PRIMARY KEY AUTOINCREMENT,
-		  sigla TEXT,
-		  name TEXT,
+		  sigla TEXT NOT NULL,
+		  nome TEXT
 	  );
 
-	  CREATE TABLE IF NOT EXISTS situacoes (
+	  CREATE TABLE IF NOT EXISTS aeroportos (
 		id INTEGER PRIMARY KEY AUTOINCREMENT,
-		titulo TEXT,
+		sigla TEXT NOT NULL,
+		nome TEXT
 	);
-  
+
+	CREATE TABLE IF NOT EXISTS situacoes (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		situacao TEXT NOT NULL,
+		descricao TEXT
+	);
+
+	CREATE TABLE IF NOT EXISTS justificativas (
+		id INTEGER PRIMARY KEY AUTOINCREMENT,
+		sigla TEXT NOT NULL,
+		descricao TEXT
+	);
+
+
 	  CREATE TABLE IF NOT EXISTS voos (
 		  id INTEGER PRIMARY KEY AUTOINCREMENT,
-		  empresa_id INTEGER NOT NULL,
+		  id_empresa INTEGER NOT NULL,
+		  numero_voo TEXT,
 		  di TEXT NOT NULL,
 		  tipo_linha TEXT NOT NULL,
-		  origem TEXT NOT NULL,
-		  destino TEXT NOT NULL,
+		  id_aeroporto_origem INTEGER NOT NULL,
+		  id_aeroporto_destino INTEGER NOT NULL,
 		  partida_prevista DATETIME,
 		  partida_real DATETIME,
 		  chegada_prevista DATETIME,
 		  chegada_real DATETIME,
-		  situacao_id VARCHAR(9) NOT NULL,
-		  justificativa TEXT,
+		  id_situacao INTEGER NOT NULL,
+		  id_justificativa INTEGER
 	  );
 	`);
 }
